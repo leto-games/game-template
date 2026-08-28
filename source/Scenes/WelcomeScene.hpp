@@ -16,14 +16,12 @@
 #include <Time/Timer.hpp>
 
 #include "../Scenes/SceneID.hpp"
-#include "../Logic/BattleshipField.hpp"
 
 #include <Data/StaticList.hpp>
 #include <Drawable/DrawableBitmap.hpp>
 #include <UI/Animation/MoveAnimation.hpp>
 #include <UI/Animation/CartoonAnimation.hpp>
 #include <Data/Point2.hpp>
-
 
 // Сцена с приветствием
 class WelcomeScene final : public IScene
@@ -36,10 +34,12 @@ public:
     WelcomeScene(ISceneManager* game);
 
     // Пользовательский ввод в игру
-    virtual bool ProcessInput(const AppEvent& event) override { return true; }
+    virtual bool ProcessInput(const AppEvent& event) override;
 
     // Игровая отрисовка
     virtual void Draw(IScreen& screen) override;
 
     SCENE_NO_ARGS_BUILDER(WelcomeScene)
 };
+
+#endif
