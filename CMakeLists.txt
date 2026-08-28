@@ -15,16 +15,15 @@ file(
 )
 
 if("${PRESET_DEFINE_MACRO}" STREQUAL "__STM32__")
-	project("TemplateGame" C CXX ASM)
+	project("game-template" C CXX ASM)
 	file(GLOB HW_COURCES "Src/*.cpp" "Src/*.c" )
 	add_executable(${PROJECT_NAME} "${C_CPP_COURCES}" "${HW_COURCES}")
 	set_target_properties(${PROJECT_NAME} PROPERTIES SUFFIX ".elf")
 else()
-	project("TemplateGame" C CXX)
+	project("game-template" C CXX)
 	add_library("${PROJECT_NAME}" SHARED "${C_CPP_COURCES}")
 	if(DEFINED ENV{LETO_PATH})
 		target_compile_definitions(${PROJECT_NAME} PRIVATE LETOCORE_SHARED)
-		set(CMAKE_RUNTIME_OUTPUT_DIRECTORY $ENV{LETO_PATH}/leto-console/apps/${PRESET_NAME})
 	endif()
 endif()
 
@@ -101,7 +100,13 @@ elseif (${PRESET_DEFINE_MACRO} STREQUAL "__TERMUX__")
 endif ()
 
 if(DEFINED ENV{LETO_PATH})
-    message(STATUS "[${PROJECT_NAME}] Найдена переменная LETO_PATH. Подключаем готовые артефакты...")
+    message(STATUS "[${PROJECT_NAME}] Найдена переменная окружения LETO_PATH. Подключаем готовые артефакты...")
+
+	add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
+		COMMAND ${CMAKE_COMMAND} -E copy_directory
+		"${CMAKE_RUNTIME_OUTPUT_DIRECTORY}"
+		"$ENV{LETO_PATH}/leto-console/apps/${CMAKE_PRESET_NAME}/${PROJECT_NAME}/"
+	)
 
 	target_link_directories(${PROJECT_NAME} PUBLIC "$ENV{LETO_PATH}/LetoAPI/lib/${CORE_BUILD_PRESET}")
 	target_link_directories(${PROJECT_NAME} PUBLIC "$ENV{LETO_PATH}/LetoCore/lib/${CORE_BUILD_PRESET}")
@@ -109,7 +114,7 @@ if(DEFINED ENV{LETO_PATH})
 	target_include_directories(${PROJECT_NAME} PUBLIC "$ENV{LETO_PATH}/LetoAPI/include")
 	target_include_directories(${PROJECT_NAME} PUBLIC "$ENV{LETO_PATH}/LetoCore/include")
 else()
-    message(STATUS "[${PROJECT_NAME}] Переменная LETO_PATH не найдена. Серверная сборка через FetchContent...")
+    message(STATUS "[${PROJECT_NAME}] Переменная окружения LETO_PATH не найдена. Серверная сборка через FetchContent...")
 
 	include(FetchContent)
     FetchContent_Declare(
