@@ -36,8 +36,6 @@
                 "strategy": "external"
             },
             "cacheVariables": {
-                "CMAKE_C_COMPILER": "cl.exe",
-                "CMAKE_CXX_COMPILER": "cl.exe",
                 "PRESET_DEFINE_MACRO": "__WIN__"
             },
             "condition": {
