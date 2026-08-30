@@ -108,8 +108,8 @@ if(DEFINED ENV{LETO_PATH})
 		"$ENV{LETO_PATH}/leto-console/apps/${CMAKE_PRESET_NAME}/${PROJECT_NAME}/"
 	)
 
-	target_link_directories(${PROJECT_NAME} PUBLIC "$ENV{LETO_PATH}/LetoAPI/lib/${CORE_BUILD_PRESET}")
-	target_link_directories(${PROJECT_NAME} PUBLIC "$ENV{LETO_PATH}/LetoCore/lib/${CORE_BUILD_PRESET}")
+	target_link_directories(${PROJECT_NAME} PUBLIC "$ENV{LETO_PATH}/Common/${CORE_BUILD_PRESET}/lib")
+	target_link_directories(${PROJECT_NAME} PUBLIC "$ENV{LETO_PATH}/Common/${CORE_BUILD_PRESET}/lib")
 
 	target_include_directories(${PROJECT_NAME} PUBLIC "$ENV{LETO_PATH}/LetoAPI/include")
 	target_include_directories(${PROJECT_NAME} PUBLIC "$ENV{LETO_PATH}/LetoCore/include")
