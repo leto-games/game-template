@@ -48,5 +48,5 @@ void WelcomeScene::Draw(IScreen& screen)
     if (p % 50 == 0) inv = !inv;
 
     // TODO: Убрать все FromHandle
-    DrawFunctions::DrawText(screen, { p, p }, "WELCOME", WhiteColor, colors[cur_color % colors_cnt], inv, IFont::FromHandle(font));
+    DrawFunctions::DrawString(screen, { p, p }, "WELCOME", WhiteColor, colors[cur_color % colors_cnt], inv, IFont::FromHandle(font));
 }
